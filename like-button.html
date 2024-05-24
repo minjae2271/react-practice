@@ -3,11 +3,14 @@
 </head>
 <body>
 <div id="root"></div>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- babel : jsx 부분을 script 내부에서 동작할 수 있게 변환 시켜줌 -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
 <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
 <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
-<script>
+<!-- babel type 지정 !, reacdom sciprt also!! -->
+<script type="text/babel">
   'use strict';
 
   const e = React.createElement;
@@ -23,12 +26,20 @@
         return 'You liked this.';
       }
 
-      return e('button', {onClick: () => this.setState({liked: true})}, 'Like');
+    //   return e('button', {onClick: () => this.setState({liked: true})}, 'Like'); 다신 볼 일 없을거야~
+    // JSX 두둥장
+    return (
+        <button onClick={() => this.setState({liked: true})}>
+            Like
+        </button>
+    )
     }
   }
 </script>
-<script>
-  ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+<script type="text/babel"> 
+    //ReactDOM.render(e(LikeButton), document.querySelector('#root')); without jsx
+    // ReactDOM.render(<LikeButton />, document.querySelector('#root')); 17 version
+    ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); 
 </script>
 </body>
 </html>
